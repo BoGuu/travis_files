@@ -5,8 +5,7 @@ Repo with travis-ci files for SQL/HPP check
 
 It checks file styling and syntax.
 
-### Boolean checks
-Examples:
+##### Boolean checks
 right:
 ```if () then {```
 
@@ -14,7 +13,7 @@ wrong:
 ```if() then {```
 
 
-### Tabs
+##### Tabs
 right:
 ```Four spaces == a tab```
 
