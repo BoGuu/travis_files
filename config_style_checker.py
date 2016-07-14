@@ -124,7 +124,7 @@ def main():
 
     print("Validating Config Style")
 
-    sqf_list = []
+    files_list = []
     bad_count = 0
 
     parser = argparse.ArgumentParser()
@@ -137,15 +137,21 @@ def main():
         rootDir = "Framework"
 
     for root, dirnames, filenames in os.walk(rootDir + '/' + args.module):
+      for filename in fnmatch.filter(filenames, '*.ext'):
+        files_list.append(os.path.join(root, filename))
       for filename in fnmatch.filter(filenames, '*.cpp'):
-        sqf_list.append(os.path.join(root, filename))
+        files_list.append(os.path.join(root, filename))
+      for filename in fnmatch.filter(filenames, '*.c'):
+        files_list.append(os.path.join(root, filename))
       for filename in fnmatch.filter(filenames, '*.hpp'):
-        sqf_list.append(os.path.join(root, filename))
+        files_list.append(os.path.join(root, filename))
+      for filename in fnmatch.filter(filenames, '*.h'):
+        files_list.append(os.path.join(root, filename))
 
-    for filename in sqf_list:
+    for filename in files_list:
         bad_count = bad_count + check_config_style(filename)
 
-    print("------\nChecked {0} files\nErrors detected: {1}".format(len(sqf_list), bad_count))
+    print("------\nChecked {0} files\nErrors detected: {1}".format(len(files_list), bad_count))
     if (bad_count == 0):
         print("Config validation PASSED")
     else:
